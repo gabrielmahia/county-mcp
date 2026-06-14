@@ -1,0 +1,62 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
+  "name": "county-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Kenya 47-county local government data \u2014 demographics, county budgets, services guide, CDF guide, ward information, and contact directory. 6 tools.",
+  "license": "MIT",
+  "homepage": "https://gabrielmahia.github.io",
+  "author": {
+    "name": "Gabriel Mahia",
+    "email": "contact@aikungfu.dev",
+    "url": "https://gabrielmahia.github.io"
+  },
+  "keywords": [
+    "kenya",
+    "counties",
+    "devolution",
+    "budget",
+    "government",
+    "civic",
+    "mcp",
+    "africa"
+  ],
+  "categories": [
+    "Government Data",
+    "Open Data"
+  ],
+  "tools": [
+    {
+      "name": "county_demographics",
+      "description": "County demographics data"
+    },
+    {
+      "name": "county_budget_guide",
+      "description": "County budget guide"
+    },
+    {
+      "name": "county_services_guide",
+      "description": "County services guide"
+    },
+    {
+      "name": "cdf_guide",
+      "description": "CDF fund guide"
+    },
+    {
+      "name": "ward_information",
+      "description": "Ward information"
+    },
+    {
+      "name": "county_contacts",
+      "description": "County contact directory"
+    }
+  ],
+  "installation": {
+    "type": "pip",
+    "package": "county-mcp",
+    "command": "pip install county-mcp"
+  },
+  "links": {
+    "github": "https://github.com/gabrielmahia/county-mcp",
+    "pypi": "https://pypi.org/project/county-mcp"
+  }
+}
