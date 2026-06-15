@@ -2,7 +2,7 @@
 from __future__ import annotations
 from typing import Optional
 from fastmcp import FastMCP
-mcp = FastMCP(name="county-mcp", description="Kenya 47 counties local government data. DEMO.")
+mcp = FastMCP(name="county-mcp", instructions="Kenya 47 counties local government data. DEMO.")
 
 COUNTIES = {
     "Nairobi": {"code": 47, "pop": 4397073, "area_km2": 695.1, "region": "Nairobi", "wards": 85, "constituencies": 17},
