@@ -1,0 +1,14 @@
+# Smithery configuration for county-mcp
+# East Africa AI Coordination Infrastructure — AI-KungFU
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+    required: []
+  commandFunction: |-
+    (config) => ({
+      command: "county-mcp",
+      args: [],
+      env: {}
+    })
