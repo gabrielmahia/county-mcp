@@ -1,5 +1,8 @@
 # county-mcp
 
+[![county-mcp Glama score](https://glama.ai/mcp/servers/gabrielmahia/county-mcp/badges/score.svg)](https://glama.ai/mcp/servers/gabrielmahia/county-mcp)
+
+
 > Kenya 47-county local government data via MCP.
 
 [![PyPI](https://img.shields.io/badge/PyPI-v0.1.0-blue?logo=pypi)](https://pypi.org/project/county-mcp/)
