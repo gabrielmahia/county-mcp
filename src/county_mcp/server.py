@@ -1,6 +1,6 @@
 """CountyMCP — Kenya 47 Counties Local Government Data (6 tools). All data DEMO."""
 from __future__ import annotations
-from typing import Optional
+from typing import Annotated, Optional
 from fastmcp import FastMCP
 from pydantic import Field
 mcp = FastMCP(name="county-mcp", instructions="Kenya 47 counties local government data. DEMO.")
@@ -55,7 +55,7 @@ COUNTIES = {
     "Nyamira": {"code": 46, "pop": 605576, "area_km2": 899.3, "region": "Nyanza", "wards": 25, "constituencies": 4},
 }
 
-@mcp.tool(name="county_information", description="Kenya county demographics and basic statistics. DEMO.")
+@mcp.tool(name="county_information", description="Kenya county demographics and basic statistics. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
 def county_information(county: Optional[str] = Field(None, description="Name of a Kenya county e.g. 'Nairobi', 'Mombasa', 'Kisumu', 'Nakuru'"), region: Optional[str] = Field(None, description="Region filter: 'Nairobi Metro', 'Coast', 'Rift Valley', 'Western', 'Nyanza', 'Central', 'Eastern', 'North Eastern'")) -> dict:
     if county:
         c = county.title()
@@ -71,7 +71,7 @@ def county_information(county: Optional[str] = Field(None, description="Name of 
     return {"source": "DEMO — KNBS 2019 Census", "all_counties": {k: {"code": v["code"], "pop": v["pop"], "region": v["region"]} for k, v in COUNTIES.items()},
             "total": 47, "regions": list(set(v["region"] for v in COUNTIES.values()))}
 
-@mcp.tool(name="county_budget_guide", description="Kenya county devolution and budget information. DEMO.")
+@mcp.tool(name="county_budget_guide", description="Kenya county devolution and budget information. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
 def county_budget_guide(county: Optional[str] = Field(None, description="Kenya county name e.g. 'Nairobi', 'Kiambu'. Leave empty for national budget overview.")) -> dict:
     """Return budget allocation, development fund, and financial accountability data for a Kenya county."""
     # Rough equitable share allocations (DEMO - based on 2024/25 estimates)
@@ -99,7 +99,7 @@ def county_budget_guide(county: Optional[str] = Field(None, description="Kenya c
             "total_devolution_budget_2025": "~KES 400 billion across 47 counties",
             "cdf": "CDF (Constituency Development Fund) is separate from county — managed by MPs. cdf.go.ke"}
 
-@mcp.tool(name="county_services_guide", description="Services available at Kenya county government level. DEMO.")
+@mcp.tool(name="county_services_guide", description="Services available at Kenya county government level. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
 def county_services_guide(service: Optional[str] = Field(None, description="Service category e.g. 'health', 'education', 'water', 'agriculture', 'roads'. Leave empty for full catalogue.")) -> dict:
     """List and describe devolved government services available at county level in Kenya."""
     SERVICES = {
@@ -122,7 +122,7 @@ def county_services_guide(service: Optional[str] = Field(None, description="Serv
             "national_services": "National ID, passport, KRA, land titles — national government",
             "contact": "Visit your sub-county office. Directory at county.go.ke"}
 
-@mcp.tool(name="cdf_guide", description="Kenya Constituency Development Fund (CDF) guide. DEMO.")
+@mcp.tool(name="cdf_guide", description="Kenya Constituency Development Fund (CDF, annotations={"readOnlyHint": True, "openWorldHint": False}) guide. DEMO.")
 def cdf_guide() -> dict:
     return {"source": "DEMO — CDF Act 2013 (Kenya)", "what_is_cdf":
             "Constituency Development Fund allocates 2.5% of national revenue to 290 constituencies for development projects.",
@@ -140,7 +140,7 @@ def cdf_guide() -> dict:
             "accountability": "CDF accounts must be audited. Misuse is a criminal offence under the CDF Act.",
             "portal": "cdf.go.ke"}
 
-@mcp.tool(name="ward_information", description="Kenya ward-level civic information and ward representative role. DEMO.")
+@mcp.tool(name="ward_information", description="Kenya ward-level civic information and ward representative role. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
 def ward_information(county: Optional[str] = Field(None, description="Kenya county name e.g. 'Nairobi'. Returns ward breakdown for that county.")) -> dict:
     """Return ward and constituency breakdown for a Kenya county."""
     return {"source": "DEMO — IEBC Kenya", "what_is_ward":
@@ -157,7 +157,7 @@ def ward_information(county: Optional[str] = Field(None, description="Kenya coun
             "petition_mca": "Citizens can petition the county assembly on any matter affecting their county.",
             "iebc": "iebc.or.ke — find your ward, constituency, and county representatives"}
 
-@mcp.tool(name="county_contact_directory", description="Kenya county government contact directory. DEMO.")
+@mcp.tool(name="county_contact_directory", description="Kenya county government contact directory. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
 def county_contact_directory(county: Optional[str] = Field(None, description="Kenya county name e.g. 'Mombasa'. Leave empty for full 47-county contact list.")) -> dict:
     """Return official contact information for Kenya county government offices."""
     CONTACTS = {
