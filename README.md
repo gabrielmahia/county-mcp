@@ -4,6 +4,14 @@
 [![smithery badge](https://smithery.ai/badge/@gabrielmahia/county-mcp)](https://smithery.ai/server/@gabrielmahia/county-mcp)
 
 
+---
+**Compatible with `claude-sonnet-5`** (released 2026-06-30) — Anthropic's most agentic
+Sonnet yet. Runs multi-step tool chains end-to-end without stopping short.
+Install: `pip install county-mcp` · Use with any MCP client.
+
+---
+
+
 > Kenya 47-county local government data via MCP.
 
 [![PyPI](https://img.shields.io/badge/PyPI-v0.1.0-blue?logo=pypi)](https://pypi.org/project/county-mcp/)
