@@ -121,7 +121,7 @@ def county_services_guide(service: Annotated[Optional[str], "Service category e.
             "national_services": "National ID, passport, KRA, land titles — national government",
             "contact": "Visit your sub-county office. Directory at county.go.ke"}
 
-@mcp.tool(name="cdf_guide", description="Kenya Constituency Development Fund (CDF, annotations={"readOnlyHint": True, "openWorldHint": False}) guide. DEMO.")
+@mcp.tool(name="cdf_guide", description="Kenya Constituency Development Fund (CDF) guide. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
 def cdf_guide() -> dict:
     return {"source": "DEMO — CDF Act 2013 (Kenya)", "what_is_cdf":
             "Constituency Development Fund allocates 2.5% of national revenue to 290 constituencies for development projects.",
