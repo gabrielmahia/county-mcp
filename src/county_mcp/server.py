@@ -174,3 +174,7 @@ def county_contact_directory(county: Annotated[Optional[str], "Kenya county name
             "general_pattern": "All counties: [countyname].go.ke (e.g. nakuru.go.ke, kisumu.go.ke)",
             "county_assembly_pattern": "[countyname]ca.go.ke or [countyname].go.ke/county-assembly",
             "all_contacts": "kenya.go.ke/counties | 47counties.go.ke"}
+
+def main() -> None:
+    """Console entry point."""
+    mcp.run()
