@@ -1,42 +1,61 @@
 # county-mcp
-<!-- mcp-name: io.github.gabrielmahia/county-mcp -->
 
-[![county-mcp Glama score](https://glama.ai/mcp/servers/gabrielmahia/county-mcp/badges/score.svg)](https://glama.ai/mcp/servers/gabrielmahia/county-mcp)
-[![smithery badge](https://smithery.ai/badge/@gabrielmahia/county-mcp)](https://smithery.ai/server/@gabrielmahia/county-mcp)
+## Why This Exists
 
-
----
-**Compatible with `claude-sonnet-5`** (released 2026-06-30) — Anthropic's most agentic
-Sonnet yet. Runs multi-step tool chains end-to-end without stopping short.
-Install: `pip install county-mcp` · Use with any MCP client.
-
----
-
-
-> Kenya 47-county local government data via MCP.
-
-[![PyPI](https://img.shields.io/badge/PyPI-v0.1.0-blue?logo=pypi)](https://pypi.org/project/county-mcp/)
-[![Thesis Layer](https://img.shields.io/badge/Thesis_Layer-L9_Civic_Infrastructure-orange)](https://gabrielmahia.github.io/nairobi-stack)
+Kenya's 2010 Constitution devolved substantial budget and service delivery to 47 counties, but county-level demographics, budgets, ward structures and contacts are published inconsistently across 47 different sites. Devolution only works if citizens can actually see what their county controls.
 
 ## Install
+
 ```bash
 pip install county-mcp
 ```
 
-## Tools (6) — All 47 counties covered
-| Tool | Description |
-|------|-------------|
-| `county_information` | Demographics, area, wards, constituencies for all 47 counties |
-| `county_budget_guide` | Devolution funding, equitable share, own-source revenue |
-| `county_services_guide` | What services are provided at county vs national level |
-| `cdf_guide` | Constituency Development Fund — bursaries, project proposals |
-| `ward_information` | MCA role, ward development fund, how to petition county assembly |
-| `county_contact_directory` | County government websites, governor offices, assembly contacts |
+## Tools (6)
 
-→ [The Nairobi Stack](https://gabrielmahia.github.io/nairobi-stack)
+- **`county_information`** —   
+  <sub>args: county, region</sub>
+- **`county_budget_guide`** — Return budget allocation, development fund, and financial accountability data for a Kenya county.  
+  <sub>args: county</sub>
+- **`county_services_guide`** — List and describe devolved government services available at county level in Kenya.  
+  <sub>args: service</sub>
+- **`cdf_guide`** —   
+  <sub>args: no arguments</sub>
+- **`ward_information`** — Return ward and constituency breakdown for a Kenya county.  
+  <sub>args: county</sub>
+- **`county_contact_directory`** — Return official contact information for Kenya county government offices.  
+  <sub>args: county</sub>
 
-## License
-MIT © Gabriel Mahia | contact@aikungfu.dev
+## Example
+
+```python
+from county_mcp.server import county_information
+
+result = county_information(county='Kiambu')
+# demographics, budget allocation, services, contacts
+```
+
+## Claude Desktop Integration
+
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "county-mcp": {
+      "command": "python",
+      "args": ["-m", "county_mcp.server"]
+    }
+  }
+}
+```
+
+## Data & Disclaimers
+
+County figures are reference data compiled from public sources. Budgets change each fiscal year — verify against the Controller of Budget (cob.go.ke) and the county's own publications.
+
+Every tool response carries a `source` field. Responses labelled `DEMO` are
+illustrative reference data, not a live feed — verify against the authority
+named in the response before acting on it.
 
 ## Part of the East Africa Coordination Stack
 
