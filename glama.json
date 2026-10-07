@@ -1,8 +1,8 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
   "name": "county-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for Kenya 47-county local government data \u2014 demographics, county budgets, services guide, CDF guide, ward information, and contact directory. 6 tools.",
+  "version": "0.1.4",
+  "description": "Kenya 47 counties local government data via MCP — budgets, services, CDF, wards. 6 tools. Thesis L9.",
   "license": "MIT",
   "homepage": "https://gabrielmahia.github.io",
   "author": {
@@ -35,28 +35,28 @@
   ],
   "tools": [
     {
-      "name": "county_demographics",
-      "description": "County demographics data"
+      "name": "county_information",
+      "description": "Kenya county demographics and basic statistics. DEMO."
     },
     {
       "name": "county_budget_guide",
-      "description": "County budget guide"
+      "description": "Kenya county devolution and budget information. DEMO."
     },
     {
       "name": "county_services_guide",
-      "description": "County services guide"
+      "description": "Services available at Kenya county government level. DEMO."
     },
     {
       "name": "cdf_guide",
-      "description": "CDF fund guide"
+      "description": "Kenya Constituency Development Fund (CDF) guide. DEMO."
     },
     {
       "name": "ward_information",
-      "description": "Ward information"
+      "description": "Kenya ward-level civic information and ward representative role. DEMO."
     },
     {
-      "name": "county_contacts",
-      "description": "County contact directory"
+      "name": "county_contact_directory",
+      "description": "Kenya county government contact directory. DEMO."
     }
   ],
   "installation": {
@@ -67,5 +67,8 @@
   "links": {
     "github": "https://github.com/gabrielmahia/county-mcp",
     "pypi": "https://pypi.org/project/county-mcp"
-  }
+  },
+  "maintainers": [
+    "gabrielmahia"
+  ]
 }
