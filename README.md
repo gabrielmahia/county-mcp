@@ -1,4 +1,5 @@
 # county-mcp
+<!-- mcp-name: io.github.gabrielmahia/county-mcp -->
 
 ## Why This Exists
 
