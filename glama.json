@@ -36,27 +36,27 @@
   "tools": [
     {
       "name": "county_information",
-      "description": "Kenya county demographics and basic statistics. DEMO."
+      "description": "Basic facts about a Kenyan county (code, population from the 2019 census, region, headquarters) or a list of counties in a region. Use when someone asks about a county or wants the counties in a region. county is matched by name (title case); an unknown county returns an error listing the 47 valid names. With only region it lists that region's counties; with neither it summarises all 47. Returns the source label and the county record or list. Census-based sample data labelled DEMO. Read-only; no side effects."
     },
     {
       "name": "county_budget_guide",
-      "description": "Kenya county devolution and budget information. DEMO."
+      "description": "How a county's budget works: equitable share, own-source revenue, conditional grants and oversight by the Controller of Budget, with the county's equitable share where known. Use when someone asks how much a county gets or how its budget is controlled. Only counties in the sample table have a figure; for any other equitable_share_kes_million is null and equitable_share_basis says no data, never an invented amount. Returns the source label, county, the share, basis and explanatory sections. Sample figures labelled DEMO: check the Controller of Budget (cob.go.ke). Read-only; no side effects."
     },
     {
       "name": "county_services_guide",
-      "description": "Services available at Kenya county government level. DEMO."
+      "description": "What county governments run under the County Governments Act 2012 (health, agriculture, roads, water and others) versus national government. Use when someone asks who is responsible for a service. Keywords in service select entries; if none match, ALL services are returned; with no service it lists them with national-government services and a contact pointer. Returns the source label and the matching services. Static summary labelled DEMO. Read-only; no side effects."
     },
     {
       "name": "cdf_guide",
-      "description": "Kenya Constituency Development Fund (CDF) guide. DEMO."
+      "description": "Explain the Constituency Development Fund (CDF): what it is, how much it gets, how projects are chosen and funded, how to propose one and how it is held to account. Use when someone asks how to get a community project funded or where CDF money goes. Takes no arguments. Returns the source label and the CDF description, process, proposal and accountability notes with the cdf.go.ke portal. Static summary of the CDF Act labelled DEMO: verify current rules and the legal status of CDF. Read-only; no side effects."
     },
     {
       "name": "ward_information",
-      "description": "Kenya ward-level civic information and ward representative role. DEMO."
+      "description": "Explain wards and Members of County Assembly (MCAs): how wards are formed, what an MCA does, ward development funds, how to reach an MCA and petition the county assembly. Use when someone asks who represents them locally or how to raise an issue. county is only used in a sentence naming the county assembly; no ward data is held. Returns the source label and the explanation with IEBC and county pointers. Static summary labelled DEMO: ward figures are indicative. Read-only; no side effects."
     },
     {
       "name": "county_contact_directory",
-      "description": "Kenya county government contact directory. DEMO."
+      "description": "Official website and contact details for a Kenyan county government. Use when someone needs to reach a county office. Only some counties are in the sample directory; for any other the result sets verified false and gives a guessed [county].go.ke address plus a note to confirm it, not a confirmed contact. With no county it returns the sample directory and general patterns. Returns the source label, the county and its contact record. Contact details are labelled DEMO and unverified: confirm before relying. Read-only; no side effects."
     }
   ],
   "installation": {
