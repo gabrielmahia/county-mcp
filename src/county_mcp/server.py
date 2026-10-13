@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Annotated, Optional
 
 from fastmcp import FastMCP
+from pydantic import Field
 
 mcp = FastMCP(name="county-mcp", instructions="Kenya 47 counties local government data. DEMO.")
 
@@ -57,8 +58,8 @@ COUNTIES = {
     "Nyamira": {"code": 46, "pop": 605576, "area_km2": 899.3, "region": "Nyanza", "wards": 25, "constituencies": 4},
 }
 
-@mcp.tool(name="county_information", description="Kenya county demographics and basic statistics. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
-def county_information(county: Annotated[str | None, "Name of a Kenya county e.g."] = None, region: Annotated[str | None, "Region filter:"] = None) -> dict:
+@mcp.tool(name="county_information", description="Basic facts about a Kenyan county (code, population from the 2019 census, region, headquarters) or a list of counties in a region. Use when someone asks about a county or wants the counties in a region. county is matched by name (title case); an unknown county returns an error listing the 47 valid names. With only region it lists that region's counties; with neither it summarises all 47. Returns the source label and the county record or list. Census-based sample data labelled DEMO. Read-only; no side effects.", annotations={"readOnlyHint": True, "openWorldHint": False})
+def county_information(county: Annotated[Annotated[str | None, Field(description="County name such as Nakuru; unknown names return an error.")], "Name of a Kenya county e.g."] = None, region: Annotated[Annotated[str | None, Field(description="Optional region such as Coast; used when no county is given.")], "Region filter:"] = None) -> dict:
     if county:
         c = county.title()
         info = COUNTIES.get(c)
@@ -73,8 +74,8 @@ def county_information(county: Annotated[str | None, "Name of a Kenya county e.g
     return {"source": "DEMO — KNBS 2019 Census", "all_counties": {k: {"code": v["code"], "pop": v["pop"], "region": v["region"]} for k, v in COUNTIES.items()},
             "total": 47, "regions": list({v["region"] for v in COUNTIES.values()})}
 
-@mcp.tool(name="county_budget_guide", description="Kenya county devolution and budget information. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
-def county_budget_guide(county: Annotated[str | None, "Kenya county name e.g."] = None) -> dict:
+@mcp.tool(name="county_budget_guide", description="How a county's budget works: equitable share, own-source revenue, conditional grants and oversight by the Controller of Budget, with the county's equitable share where known. Use when someone asks how much a county gets or how its budget is controlled. Only counties in the sample table have a figure; for any other equitable_share_kes_million is null and equitable_share_basis says no data, never an invented amount. Returns the source label, county, the share, basis and explanatory sections. Sample figures labelled DEMO: check the Controller of Budget (cob.go.ke). Read-only; no side effects.", annotations={"readOnlyHint": True, "openWorldHint": False})
+def county_budget_guide(county: Annotated[Annotated[str | None, Field(description="Optional county name; counties not in the sample table get no figure.")], "Kenya county name e.g."] = None) -> dict:
     """Return budget allocation, development fund, and financial accountability data for a Kenya county."""
     # Rough equitable share allocations (DEMO - based on 2024/25 estimates)
     BUDGETS = {
@@ -83,9 +84,9 @@ def county_budget_guide(county: Annotated[str | None, "Kenya county name e.g."] 
     }
     if county:
         c = county.title()
-        budget = BUDGETS.get(c, 5000)  # default estimate
+        budget = BUDGETS.get(c)
         return {"source": "DEMO — Controller of Budget Kenya", "county": c,
-                "equitable_share_kes_million": budget,
+                "equitable_share_kes_million": budget, "equitable_share_basis": "sample table" if budget is not None else "no data for this county",
                 "own_source_revenue": "Counties collect property rates, business permits, market fees, etc.",
                 "devolved_functions": ["Health services", "Pre-primary education", "County roads", "Agriculture", "Trade"],
                 "budget_documents": "Each county publishes Annual Development Plan and Budget at county.go.ke",
@@ -101,8 +102,8 @@ def county_budget_guide(county: Annotated[str | None, "Kenya county name e.g."] 
             "total_devolution_budget_2025": "~KES 400 billion across 47 counties",
             "cdf": "CDF (Constituency Development Fund) is separate from county — managed by MPs. cdf.go.ke"}
 
-@mcp.tool(name="county_services_guide", description="Services available at Kenya county government level. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
-def county_services_guide(service: Annotated[str | None, "Service category e.g."] = None) -> dict:
+@mcp.tool(name="county_services_guide", description="What county governments run under the County Governments Act 2012 (health, agriculture, roads, water and others) versus national government. Use when someone asks who is responsible for a service. Keywords in service select entries; if none match, ALL services are returned; with no service it lists them with national-government services and a contact pointer. Returns the source label and the matching services. Static summary labelled DEMO. Read-only; no side effects.", annotations={"readOnlyHint": True, "openWorldHint": False})
+def county_services_guide(service: Annotated[Annotated[str | None, Field(description="Optional service such as health or water.")], "Service category e.g."] = None) -> dict:
     """List and describe devolved government services available at county level in Kenya."""
     SERVICES = {
         "health": "Primary health facilities (dispensaries, health centres), referral system to national hospitals",
@@ -124,7 +125,7 @@ def county_services_guide(service: Annotated[str | None, "Service category e.g."
             "national_services": "National ID, passport, KRA, land titles — national government",
             "contact": "Visit your sub-county office. Directory at county.go.ke"}
 
-@mcp.tool(name="cdf_guide", description="Kenya Constituency Development Fund (CDF) guide. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
+@mcp.tool(name="cdf_guide", description="Explain the Constituency Development Fund (CDF): what it is, how much it gets, how projects are chosen and funded, how to propose one and how it is held to account. Use when someone asks how to get a community project funded or where CDF money goes. Takes no arguments. Returns the source label and the CDF description, process, proposal and accountability notes with the cdf.go.ke portal. Static summary of the CDF Act labelled DEMO: verify current rules and the legal status of CDF. Read-only; no side effects.", annotations={"readOnlyHint": True, "openWorldHint": False})
 def cdf_guide() -> dict:
     return {"source": "DEMO — CDF Act 2013 (Kenya)", "what_is_cdf":
             "Constituency Development Fund allocates 2.5% of national revenue to 290 constituencies for development projects.",
@@ -142,8 +143,8 @@ def cdf_guide() -> dict:
             "accountability": "CDF accounts must be audited. Misuse is a criminal offence under the CDF Act.",
             "portal": "cdf.go.ke"}
 
-@mcp.tool(name="ward_information", description="Kenya ward-level civic information and ward representative role. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
-def ward_information(county: Annotated[str | None, "Kenya county name e.g."] = None) -> dict:
+@mcp.tool(name="ward_information", description="Explain wards and Members of County Assembly (MCAs): how wards are formed, what an MCA does, ward development funds, how to reach an MCA and petition the county assembly. Use when someone asks who represents them locally or how to raise an issue. county is only used in a sentence naming the county assembly; no ward data is held. Returns the source label and the explanation with IEBC and county pointers. Static summary labelled DEMO: ward figures are indicative. Read-only; no side effects.", annotations={"readOnlyHint": True, "openWorldHint": False})
+def ward_information(county: Annotated[Annotated[str | None, Field(description="Optional county name; only used in a sentence about its county assembly.")], "Kenya county name e.g."] = None) -> dict:
     """Return ward and constituency breakdown for a Kenya county."""
     return {"source": "DEMO — IEBC Kenya", "what_is_ward":
             "Kenya is divided into 1,450 wards (sub-units of constituencies). Each ward elects a Member of County Assembly (MCA).",
@@ -159,8 +160,8 @@ def ward_information(county: Annotated[str | None, "Kenya county name e.g."] = N
             "petition_mca": "Citizens can petition the county assembly on any matter affecting their county.",
             "iebc": "iebc.or.ke — find your ward, constituency, and county representatives"}
 
-@mcp.tool(name="county_contact_directory", description="Kenya county government contact directory. DEMO.", annotations={"readOnlyHint": True, "openWorldHint": False})
-def county_contact_directory(county: Annotated[str | None, "Kenya county name e.g."] = None) -> dict:
+@mcp.tool(name="county_contact_directory", description="Official website and contact details for a Kenyan county government. Use when someone needs to reach a county office. Only some counties are in the sample directory; for any other the result sets verified false and gives a guessed [county].go.ke address plus a note to confirm it, not a confirmed contact. With no county it returns the sample directory and general patterns. Returns the source label, the county and its contact record. Contact details are labelled DEMO and unverified: confirm before relying. Read-only; no side effects.", annotations={"readOnlyHint": True, "openWorldHint": False})
+def county_contact_directory(county: Annotated[Annotated[str | None, Field(description="Optional county name; omit for the sample directory.")], "Kenya county name e.g."] = None) -> dict:
     """Return official contact information for Kenya county government offices."""
     CONTACTS = {
         "Nairobi": {"website": "nairobi.go.ke", "governor_office": "0800720007", "county_assembly": "nairobica.go.ke"},
@@ -171,7 +172,7 @@ def county_contact_directory(county: Annotated[str | None, "Kenya county name e.
     }
     if county:
         c = county.title()
-        info = CONTACTS.get(c, {"website": f"{c.lower().replace(' ','')}.go.ke", "note": "All 47 counties have websites at [countyname].go.ke"})
+        info = CONTACTS.get(c, {"verified": False, "website_guess": f"{c.lower().replace(' ','')}.go.ke", "note": "Not in the sample directory: this address is a guess from the usual [countyname].go.ke pattern. Confirm at kenya.go.ke/counties."})
         return {"source": "DEMO", "county": c, "contact": info}
     return {"source": "DEMO", "contacts": CONTACTS,
             "general_pattern": "All counties: [countyname].go.ke (e.g. nakuru.go.ke, kisumu.go.ke)",
