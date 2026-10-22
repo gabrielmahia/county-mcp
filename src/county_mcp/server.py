@@ -1,12 +1,20 @@
 """CountyMCP — Kenya 47 Counties Local Government Data (6 tools). All data DEMO."""
 from __future__ import annotations
 
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
 from typing import Annotated, Optional
 
 from fastmcp import FastMCP
 from pydantic import Field
 
-mcp = FastMCP(name="county-mcp", instructions="Kenya 47 counties local government data. DEMO.")
+try:
+    _VERSION = _pkg_version("county-mcp")
+except PackageNotFoundError:  # a source tree that was never installed
+    _VERSION = "0+unknown"
+
+
+mcp = FastMCP(name="county-mcp", instructions="Kenya 47 counties local government data. DEMO.", version=_VERSION)
 
 COUNTIES = {
     "Nairobi": {"code": 47, "pop": 4397073, "area_km2": 695.1, "region": "Nairobi", "wards": 85, "constituencies": 17},
