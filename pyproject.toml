@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "county-mcp"
-version = "0.1.10"
+version = "0.1.11"
 description = "Kenya 47 counties local government data via MCP — budgets, services, CDF, wards. 6 tools. Thesis L9."
 readme = "README.md"
 license = "MIT"
@@ -23,6 +23,7 @@ classifiers = [
 county-mcp = "county_mcp.server:mcp.run"
 
 [project.urls]
+Issues = "https://github.com/gabrielmahia/county-mcp/issues"
 Homepage = "https://github.com/gabrielmahia/county-mcp"
 Documentation = "https://github.com/gabrielmahia/nairobi-stack"
 "MCP Registry" = "https://registry.modelcontextprotocol.io"
