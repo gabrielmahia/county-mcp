@@ -3,7 +3,7 @@ message: "If you use this software, please cite it as below."
 type: software
 title: "county-mcp"
 abstract: "Kenya 47 counties local government data via MCP — budgets, services, CDF, wards. 6 tools. Thesis L9."
-version: "0.1.11"
+version: "0.1.12"
 authors:
   - family-names: "Mahia"
     given-names: "Gabriel"
